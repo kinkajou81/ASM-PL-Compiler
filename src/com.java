@@ -31,6 +31,7 @@ public class com {
     public static boolean[] persistent_delimiters = new boolean[]{false, false, true, false, false, false, false, true, false, true};
     public static boolean[] string_pairs = new boolean[]{false, false, false, true, true, true, true, false, false, false};
     public static char virtual_new_line_symbol = ';';
+    public static char[] string_delimiters = {'"', '\''};
 
     public static ArrayList<Integer> semicolon_positions = new ArrayList<>();
 }
