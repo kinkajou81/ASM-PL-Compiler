@@ -14,7 +14,7 @@ public class line_parser {
             current_char_position++;
         }
         if(current_char_position > last_new_line_position) {
-            System.out.printf("Warning: Trailing Code, trailing code will be excluded from the output");
+            virtual_lines.add(s.substring(last_new_line_position, current_char_position));
         }
         return virtual_lines;
     }
