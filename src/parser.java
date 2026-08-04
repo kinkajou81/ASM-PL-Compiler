@@ -53,6 +53,54 @@ public class parser {
         return is_string;
     }
 
+    public static String remove_comments(String s, BitSet is_string) {
+        BitSet is_comment = new BitSet();
+
+        boolean inside_comment = false;
+        int comment_type = -1;
+
+        int i = 0;
+        int j;
+        while(i < s.length()) {
+            j = 0;
+            if(inside_comment) is_comment.set(i);
+            if(is_string.get(i)) {i++; continue;}
+
+            while(j < com.comment_delimiter_pairs.length) {
+                if(i + com.comment_delimiter_pairs[j][1].length() <= s.length()) {
+                    if((s.substring(i, i + com.comment_delimiter_pairs[j][1].length())).equals(com.comment_delimiter_pairs[j][1])
+                        && j == comment_type && inside_comment) {
+                            
+                        inside_comment = false;
+                        comment_type = -1;
+                        is_comment.clear(i);
+                        break;
+                    }
+                }
+                if(i + com.comment_delimiter_pairs[j][0].length() <= s.length()) {
+                    if((s.substring(i, i + com.comment_delimiter_pairs[j][0].length())).equals(com.comment_delimiter_pairs[j][0])
+                        && !inside_comment) {
+
+                        inside_comment = true;
+                        comment_type = j;
+                        is_comment.set(i);
+                        break;
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        i = 0;
+        StringBuilder output_builder = new StringBuilder(s.length()); // size set to max size
+        while(i < s.length()) {
+            if(!is_comment.get(i)) output_builder.append(s.charAt(i));
+            i++;
+        }
+
+        return output_builder.toString();
+    }
+
     public static String parse_lines(String s) {
         int i = 0;
         int j;
