@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class line_parser {
+public class parser {
     public static ArrayList<String> listify_virtual_lines(String s) {
         int last_new_line_position = 0;
         ArrayList<String> virtual_lines = new ArrayList<>();
