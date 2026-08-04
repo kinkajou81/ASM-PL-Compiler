@@ -1,4 +1,4 @@
-public class line_parsing {
+public class line_parser {
     public static String parse_lines(String s) {
         int i = 0;
         int j;
