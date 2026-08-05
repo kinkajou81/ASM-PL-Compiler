@@ -25,10 +25,10 @@ public class types {
 
         // generic
         STRING, CHAR, DECIMAL_NUMBER, OCTAL_NUMBER, BINARY_NUMBER, 
-        SENARY_NUMBER, KEYWORD, TEXT, TYPE, INTRINSIC, 
+        SENARY_NUMBER, KEYWORD, TEXT,
         
         // other
-        EOF, NULL
+        EOF
     }
 
     public enum type_attribute {
