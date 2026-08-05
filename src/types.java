@@ -3,18 +3,18 @@ import java.util.ArrayList;
 public class types {
     public enum lexer_token {
         // unary operators
-        DIRECTIVE, ABSOLUTE_VALUE, NOT, UNASSIGNMENT, LABEL,
+        DIRECTIVE, NOT, UNASSIGNMENT, LABEL,
 
         // binary operators
         ASSIGNMENT, WHILE, EQUAL_TO, LESS_THAN, GREATER_THAN, 
         LESS_THAN_EQUAL_TO, GREATER_THAN_EQUAL_TO, NOT_EQUAL_TO, 
-        OR, BITSHIFT_LEFT, BITSHIFT_RIGHT, BITROTATE_LEFT, 
+        BITSHIFT_LEFT, BITSHIFT_RIGHT, BITROTATE_LEFT, 
         BITROTATE_RIGHT, DIVIDE, STRUCTURE_REFERNCE, 
         STRUCTURE_DEREFERNCE, NAMESPACE_RESOLUTION, LIST_SEPARATOR, 
         MODULO, ELVIS,
 
         // binary and unary operators
-        AMPERSAND, ASTERISK, PLUS, MINUS, CARET,
+        AMPERSAND, ASTERISK, PLUS, MINUS, CARET, VERTICAL_LINE,
 
         // pair operators
         TERNARY_PART1, FUNCTION_DEF, FUNCTION_END, PAREN_LEFT, 
