@@ -89,6 +89,9 @@ public class Main {
 
     public static String parse(String s) {
         com.source = s.stripIndent();
+        com.is_string = parser.find_strings(com.source);
+        com.source = parser.remove_comments(com.source, com.is_string);
+        com.load_lexer_token_map_data();
         return null; // temporary
     }
 

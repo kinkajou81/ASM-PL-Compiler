@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ public class com {
     public static String[][] comment_delimiter_pairs = {{"//", "\n"}, {"/*", "*/"}};
 
     public static ArrayList<Integer> semicolon_positions = new ArrayList<>();
+    public static BitSet is_string = new BitSet();
 
     
     public static Map<String, types.lexer_token> lexer_token_map = new HashMap<>();
