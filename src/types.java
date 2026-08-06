@@ -32,11 +32,11 @@ public class types {
     }
 
     public enum type_attribute {
-        NULL
+        POINTER, CONST, VOLATILE, RESTRICT, ATOMIC, REGISTER, UNSIGNED, EXPORT, THREAD_LOCAL, STATIC, EXTERN, CONSTINIT
     }
 
     public enum function_attribute {
-        NULL
+        EXPORT, INLINE, STATIC
     }
 
     public class type {
