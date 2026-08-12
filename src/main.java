@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         if(args.length != 2) {
-            System.err.printf("Usage: <source file path> <destination file path>%n");
+            System.err.printf("ERROR: Usage: <source file path> <destination file path>%n");
             System.exit(-1);
         }
 
