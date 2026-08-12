@@ -50,5 +50,12 @@ public class Main {
             System.err.printf("ERROR: %s%n", e.getMessage());
             System.exit(-1);
         }
+
+        try {
+            Files.writeString(Paths.get(args[1]), out);
+        } catch (Exception e) {
+            System.err.printf("ERROR: %s%n", e.getMessage());
+            System.exit(-1);
+        }
     }
 }
