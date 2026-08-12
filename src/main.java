@@ -1,6 +1,8 @@
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Main {
     public static String parse(String s) {
@@ -26,5 +28,23 @@ public class Main {
         }
 
         String out = parse(source_code);
+
+        File output_file = new File(args[1]);
+        try {
+            if(output_file.createNewFile()) {
+                System.out.printf("File %s created successfully%n", args[1]);
+            } else {
+                System.out.printf("File %s already exists, would you like to overwrite it? (y/N)%n", args[1]);
+                Scanner sc = new Scanner(System.in);
+                String input = sc.nextLine().strip().toLowerCase();
+                if(!input.equals("y") && !input.equals("yes")) {
+                    System.exit(-2);
+                }
+                sc.close();
+            }
+        } catch (Exception e) {
+            System.err.printf("ERROR: %s%n", e.getMessage());
+            System.exit(-1);
+        }
     }
 }
