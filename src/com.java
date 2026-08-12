@@ -15,6 +15,7 @@ public class com {
 
     
     public static Map<String, types.lexer_token> lexer_token_map = new HashMap<>();
+    public static ArrayList<String> lexer_tokens = new ArrayList<>();
     public static Object[][] lexer_token_map_data = new Object[][]{ // of the form (String, types.lexer_token)
         {"#", types.lexer_token.DIRECTIVE},
         {"!", types.lexer_token.NOT},
@@ -67,6 +68,12 @@ public class com {
                 System.err.printf("ERROR: Malformed lexer_token_map_data");
                 System.exit(-1);
             }
+        }
+    }
+
+    public static void load_lexer_tokens() {
+        for(Object[] pair : lexer_token_map_data) {
+            lexer_tokens.add(String.valueOf(pair[0]));
         }
     }
 }
