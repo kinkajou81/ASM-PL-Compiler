@@ -53,10 +53,11 @@ public class lexer {
             }
 
             if(com.is_string.get(character_position)) {
-                if(outputs_last_element instanceof String) {
+                if(outputs_last_element == types.lexer_token.STRING) {
                     if(!output[1].isEmpty()) output[1].set(output[1].size() - 1, output[1].get(output[1].size() - 1) + s.substring(character_position, character_position + 1));
                     else output[1].add(s.substring(character_position, character_position + 1));
                 } else {
+                    output[0].add(types.lexer_token.STRING);
                     output[1].add(s.substring(character_position, character_position + 1));
                 }
                 character_position++;
