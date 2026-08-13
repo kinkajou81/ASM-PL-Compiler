@@ -18,7 +18,7 @@ public class types {
         // pair operators
         TERNARY_PART1, FUNCTION_DEF, FUNCTION_END, PAREN_LEFT,
         PAREN_RIGHT, SQUARE_BRACKET_LEFT, SQUARE_BRACKET_RIGHT,
-        DOUBLE_QUOTE, QUOTE, CURLY_LEFT, CURLY_RIGHT,
+        CURLY_LEFT, CURLY_RIGHT,
 
         // pair and binary and unary operators
         COLON,

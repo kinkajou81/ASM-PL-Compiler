@@ -53,8 +53,6 @@ public class com {
         {")", types.lexer_token.PAREN_RIGHT},
         {"[", types.lexer_token.SQUARE_BRACKET_LEFT},
         {"]", types.lexer_token.SQUARE_BRACKET_RIGHT},
-        {"\"", types.lexer_token.DOUBLE_QUOTE},
-        {"'", types.lexer_token.QUOTE},
         {"{", types.lexer_token.CURLY_LEFT},
         {"}", types.lexer_token.CURLY_RIGHT},
         {":", types.lexer_token.COLON},
