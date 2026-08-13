@@ -16,16 +16,15 @@ public class types {
         AMPERSAND, ASTERISK, PLUS, MINUS, CARET, VERTICAL_LINE,
 
         // pair operators
-        TERNARY_PART1, FUNCTION_DEF, FUNCTION_END, PAREN_LEFT, 
-        PAREN_RIGHT, SQUARE_BRACKET_LEFT, SQUARE_BRACKET_RIGHT, 
+        TERNARY_PART1, FUNCTION_DEF, FUNCTION_END, PAREN_LEFT,
+        PAREN_RIGHT, SQUARE_BRACKET_LEFT, SQUARE_BRACKET_RIGHT,
         DOUBLE_QUOTE, QUOTE, CURLY_LEFT, CURLY_RIGHT,
 
         // pair and binary and unary operators
         COLON,
 
         // generic
-        STRING, CHAR, DECIMAL_NUMBER, OCTAL_NUMBER, BINARY_NUMBER, 
-        SENARY_NUMBER, KEYWORD, TEXT,
+        STRING, NUMBER, KEYWORD, TEXT,
         
         // other
         EOF
