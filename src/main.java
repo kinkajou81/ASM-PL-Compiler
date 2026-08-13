@@ -31,10 +31,6 @@ public class Main {
 
         String out = parse(source_code);
 
-        if(!args[1].endsWith(".apl")) {
-            System.out.printf("Note: The official file extension for ASM/PL is .apl, it is not recomended to use other file extensions%n");
-        }
-
         File output_file = new File(args[1]);
         try {
             if(output_file.createNewFile()) {
