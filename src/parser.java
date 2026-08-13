@@ -57,6 +57,7 @@ public class parser {
         BitSet is_comment = new BitSet();
 
         boolean inside_comment = false;
+        int exited_comment = 0;
         int comment_type = -1;
 
         int i = 0;
@@ -65,15 +66,26 @@ public class parser {
             j = 0;
             if(inside_comment) is_comment.set(i);
             if(is_string.get(i)) {i++; continue;}
+            if(exited_comment > 0) {
+                if(exited_comment == 1) {
+                    inside_comment = false;
+                    is_comment.clear(i);
+                }
+                exited_comment--;
+            }
 
             while(j < com.comment_delimiter_pairs.length) {
                 if(i + com.comment_delimiter_pairs[j][1].length() <= s.length()) {
                     if((s.substring(i, i + com.comment_delimiter_pairs[j][1].length())).equals(com.comment_delimiter_pairs[j][1])
                         && j == comment_type && inside_comment) {
                             
-                        inside_comment = false;
                         comment_type = -1;
-                        is_comment.clear(i);
+                        if(com.comment_delimiter_pairs[j][1].equals("\n")) {
+                            is_comment.clear(i);
+                            inside_comment = false;
+                        } else {
+                            exited_comment = com.comment_delimiter_pairs[j][1].length();
+                        }
                         break;
                     }
                 }
