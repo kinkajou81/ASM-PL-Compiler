@@ -33,42 +33,45 @@ public class lexer {
         return candidates.get(largest_candidate_index);
     }
 
-    public static ArrayList<Object>[] lex_symbols(String[] lines) {
-        ArrayList<Object>[] tokens_and_strings = new ArrayList[lines.length];
+    public static ArrayList<Object>[] lex_symbols(String s) {
+        ArrayList<Object>[] output = new ArrayList[2];
 
-        for(int i = 0; i < lines.length; i++) {
-            tokens_and_strings[i] = new ArrayList<>();
-        }
+        output[0] = new ArrayList<>(); // 0 == tokens and strings
+        output[1] = new ArrayList<>(); // 1 == generic token's original data // all elements should always be a String object
 
-        int character_position;
+        int character_position = 0;
         String current_token;
-        int line_number = 0;
-        for(String line : lines) {
-            character_position = 0;
 
-            while(character_position < line.length()) {
-                current_token = match_string(line, character_position);
-                Object token_and_strings_last_element_of_this_line;
-                if(!tokens_and_strings[line_number].isEmpty()) {
-                    token_and_strings_last_element_of_this_line = tokens_and_strings[line_number].get(tokens_and_strings[line_number].size() - 1);
-                } else {
-                    token_and_strings_last_element_of_this_line = null;
-                }
+        while(character_position < s.length()) {
+            current_token = match_string(s, character_position);
+            Object outputs_last_element;
 
-                if(current_token.equals("NONE")) {
-                    if(token_and_strings_last_element_of_this_line instanceof String) {
-                        tokens_and_strings[line_number].set(tokens_and_strings[line_number].size() - 1, token_and_strings_last_element_of_this_line + line.substring(character_position, character_position + 1));
-                    } else {
-                        tokens_and_strings[line_number].add(line.substring(character_position, character_position + 1));
-                    }
-                    character_position++;
-                } else {
-                    tokens_and_strings[line_number].add(com.lexer_token_map.get(current_token));
-                    character_position += current_token.length();
-                }
+            if(!output[0].isEmpty()) {
+                outputs_last_element = output[0].get(output[0].size() - 1);
+            } else {
+                outputs_last_element = null;
             }
-            line_number++;
+
+            if(com.is_string.get(character_position)) {
+                if(outputs_last_element instanceof String) {
+                    if(!output[1].isEmpty()) output[1].set(output[1].size() - 1, output[1].get(output[1].size() - 1) + s.substring(character_position, character_position + 1));
+                    else output[1].add(s.substring(character_position, character_position + 1));
+                } else {
+                    output[1].add(s.substring(character_position, character_position + 1));
+                }
+                character_position++;
+            } else if(current_token.equals("NONE")) {
+                if(outputs_last_element instanceof String) {
+                    output[0].set(output[0].size() - 1, outputs_last_element + s.substring(character_position, character_position + 1));
+                } else {
+                    output[0].add(s.substring(character_position, character_position + 1));
+                }
+                character_position++;
+            } else {
+                output[0].add(com.lexer_token_map.get(current_token));
+                character_position += current_token.length();
+            }
         }
-        return tokens_and_strings;
+        return output;
     }
 }
