@@ -57,7 +57,8 @@ public class com {
         {"'", types.lexer_token.QUOTE},
         {"{", types.lexer_token.CURLY_LEFT},
         {"}", types.lexer_token.CURLY_RIGHT},
-        {":", types.lexer_token.COLON}
+        {":", types.lexer_token.COLON},
+        {" ", types.lexer_token.SPACE}
     };
 
     public static void load_lexer_token_map_data() {

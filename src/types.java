@@ -24,7 +24,7 @@ public class types {
         COLON,
 
         // generic
-        STRING, NUMBER, KEYWORD, TEXT,
+        STRING, NUMBER, KEYWORD, TEXT, SPACE,
         
         // other
         EOF
