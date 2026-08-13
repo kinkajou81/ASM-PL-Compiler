@@ -33,7 +33,7 @@ public class lexer {
         return candidates.get(largest_candidate_index);
     }
 
-    public static ArrayList<Object>[] lex_tokens(String[] lines) {
+    public static ArrayList<Object>[] lex_symbols(String[] lines) {
         ArrayList<Object>[] tokens_and_strings = new ArrayList[lines.length];
 
         for(int i = 0; i < lines.length; i++) {
