@@ -27,7 +27,7 @@ public class types {
         STRING, NUMBER, KEYWORD, TEXT, SPACE,
         
         // other
-        EOF
+        EOF, ENDLINE
     }
 
     public enum type_attribute {
