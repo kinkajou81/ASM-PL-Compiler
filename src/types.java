@@ -72,27 +72,23 @@ public class types {
     public class function {
         public String name;
         public ArrayList<variable> io_variables;
-        public ArrayList<Boolean> is_input;
         public ArrayList<function_attribute> attributes;
 
         public function() {
             name = "";
             io_variables = new ArrayList<>();
-            is_input = new ArrayList<>();
             attributes = new ArrayList<>();
         }
 
         public function(String a) {
             name = a;
             io_variables = new ArrayList<>();
-            is_input = new ArrayList<>();
             attributes = new ArrayList<>();
         }
 
-        public function(String a, ArrayList<variable> b, ArrayList<Boolean> c) {
+        public function(String a, ArrayList<variable> b) {
             name = a;
             io_variables = b;
-            is_input = c;
             attributes = new ArrayList<>();
         }
 
