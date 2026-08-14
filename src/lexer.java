@@ -83,4 +83,12 @@ public class lexer {
         }
         return s.length() - decimal_point_index - 1;
     }
+
+    public static String remove_decimal_point(String s) {
+        int decimal_point_index = s.indexOf('.');
+        if (decimal_point_index == -1) {
+            return s;
+        }
+        return s.substring(0, decimal_point_index) + s.substring(decimal_point_index + 1);
+    }
 }
