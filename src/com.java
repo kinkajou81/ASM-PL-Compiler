@@ -17,6 +17,18 @@ public class com {
     public static ArrayList<Integer> semicolon_positions = new ArrayList<>();
     public static BitSet is_string = new BitSet();
 
+    public static ArrayList<Object>[] lexed_code = new ArrayList[5];
+        // [0] == tokens and strings // later on just tokens
+        // [1] == string token's original data // all elements should always be a String
+        // [2] == numeric token's original data // all elements should always be a BigDecimal
+        // [3] == keyword token's original data // all elements should always be a String
+        // [4] == text token's original data // all elements should always be a String
+
+    public static void initialize_lexed_code() {
+        for(int i = 0; i < lexed_code.length; i++) {
+            lexed_code[i] = new ArrayList<>();
+        }
+    }
     
     public static Map<String, types.lexer_token> lexer_token_map = new HashMap<>();
     public static ArrayList<String> lexer_tokens = new ArrayList<>();
