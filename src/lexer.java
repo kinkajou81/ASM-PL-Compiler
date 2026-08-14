@@ -75,4 +75,12 @@ public class lexer {
         }
         return output;
     }
+
+    public static int count_fractional_digits(String s) {
+        int decimal_point_index = s.indexOf('.');
+        if (decimal_point_index == -1) {
+            return 0;
+        }
+        return s.length() - decimal_point_index - 1;
+    }
 }
