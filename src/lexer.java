@@ -37,7 +37,7 @@ public class lexer {
         ArrayList<Object>[] output = new ArrayList[2];
 
         output[0] = new ArrayList<>(); // 0 == tokens and strings
-        output[1] = new ArrayList<>(); // 1 == generic token's original data // all elements should always be a String object
+        output[1] = new ArrayList<>(); // 1 == string token's original data // all elements should always be a String object
 
         int character_position = 0;
         String current_token;
