@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class lexer {
@@ -90,5 +92,13 @@ public class lexer {
             return s;
         }
         return s.substring(0, decimal_point_index) + s.substring(decimal_point_index + 1);
+    }
+
+    public static BigDecimal string_to_bigdecimal(String s, int base) {
+        if(base == 10) {
+            return new BigDecimal(s);
+        }
+        return (new BigDecimal(new BigInteger(remove_decimal_point(s), base)))
+               .divide(new BigDecimal((BigInteger.valueOf(base)).pow(count_fractional_digits(s))), com.mc);
     }
 }
