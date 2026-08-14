@@ -1,9 +1,13 @@
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
 public class com {
+    public static MathContext mc = new MathContext(40, RoundingMode.CEILING);
+
     public static String source = new String();
 
     public static char virtual_new_line_symbol = ';';
