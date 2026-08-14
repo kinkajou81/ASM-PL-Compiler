@@ -101,4 +101,80 @@ public class lexer {
         return (new BigDecimal(new BigInteger(remove_decimal_point(s), base)))
                .divide(new BigDecimal((BigInteger.valueOf(base)).pow(count_fractional_digits(s))), com.mc);
     }
+
+    public static ArrayList<Object>[] lex_numbers(ArrayList<Object>[] partially_lexed_code) {
+        ArrayList<Object>[] output = new ArrayList[3];
+
+        output[0] = partially_lexed_code[0];
+        output[1] = partially_lexed_code[1];
+        output[2] = new ArrayList<>(); // 2 == numeric token's original data // all elements should always be a BigDecimal
+
+        boolean is_number;
+        int number_base;
+        int offset;
+        int character_position;
+        boolean is_fractional;
+
+        int index = 0;
+        Object o;
+        while(index < output[0].size()) {
+            o = output[0].get(index);
+
+            if(o instanceof String) {
+                is_number = true;
+                is_fractional = true;
+                String current_string = (String) o;
+
+                if((current_string).startsWith("0b")) number_base = 2;
+                else if((current_string).startsWith("0o")) number_base = 8;
+                else if((current_string).startsWith("0x")) number_base = 16;
+                else number_base = 10;
+
+                offset = (number_base == 10)? 0: 2;
+                character_position = offset;
+                while(character_position < (current_string).length()) {
+                    if(!Character.isDigit((current_string).charAt(character_position))) {
+                        is_number = false;
+                    }
+                    character_position++;
+                }
+
+                if(index + 2 < output[0].size() && is_number) {
+                    if((output[0].get(index + 1) == types.lexer_token.DOT)
+                       && (output[0].get(index + 2) instanceof String)) {
+                        current_string = (String) output[0].get(index + 2);
+                        character_position = 0;
+                        while(character_position < (current_string).length()) {
+                            if(!Character.isDigit((current_string).charAt(character_position))) {
+                                is_fractional = false;
+                            }
+                            character_position++;
+                        }
+                    } else is_fractional = false;
+                } else is_fractional = false;
+
+                if(is_number && !is_fractional) {
+                    if(number_base != 10) {
+                        output[2].add(string_to_bigdecimal(((String) output[0].get(index)).substring(2), number_base));
+                    } else {
+                        output[2].add(string_to_bigdecimal((String) output[0].get(index), number_base));
+                    }
+                    output[0].set(index, types.lexer_token.NUMBER);
+                } else if(is_fractional) {
+                    if(number_base != 10) {
+                        output[2].add(string_to_bigdecimal(((String) output[0].get(index)).substring(2) + "." + output[0].get(index + 2), number_base));
+                    } else {
+                        output[2].add(string_to_bigdecimal(output[0].get(index) + "." + output[0].get(index + 2), number_base));
+                    }
+                    output[0].set(index, types.lexer_token.NUMBER);
+                    output[0].set(index + 1, (Integer)0); // Integer marks it for deletetion
+                    output[0].set(index + 2, (Integer)0);
+                    index += 2;
+                }
+            }
+            index++;
+        }
+        output[0].removeIf(obj -> obj instanceof Integer);
+        return output;
+    }
 }
