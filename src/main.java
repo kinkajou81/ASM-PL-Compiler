@@ -10,7 +10,8 @@ public class Main {
         com.source = s.lines().map(String::strip).collect(Collectors.joining("\n"));
         com.is_string = parser.find_strings(com.source);
         com.source = parser.remove_comments(com.source, com.is_string);
-        com.is_string = parser.find_strings(com.source);
+        com.source = com.source.lines().map(String::strip).collect(Collectors.joining("\n"));
+        com.is_string = parser.find_strings(com.source);    
         com.load_lexer_token_map_data();
         com.load_lexer_tokens();
         return null; // temporary
