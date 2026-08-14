@@ -2,10 +2,23 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
+    public static void print_lexer_output(ArrayList<Object>[] lexer_output) {
+        String outstr = "";
+        for(ArrayList<Object> arr : lexer_output) {
+            for(Object o : arr) {
+                outstr += o.toString() + " ";
+            }
+            outstr += "; ";
+        }
+        outstr += "\n";
+        System.out.printf(outstr);
+    }
+
     public static String parse(String s) {
         com.source = s.lines().map(String::strip).collect(Collectors.joining("\n"));
         com.is_string = parser.find_strings(com.source);
@@ -14,6 +27,7 @@ public class Main {
         com.is_string = parser.find_strings(com.source);    
         com.load_lexer_token_map_data();
         com.load_lexer_tokens();
+        print_lexer_output(lexer.lex_numbers(lexer.lex_symbols(com.source)));
         return null; // temporary
     }
 
