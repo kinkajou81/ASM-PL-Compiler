@@ -27,9 +27,11 @@ public class Main {
         com.is_string = parser.find_strings(com.source);    
         com.load_lexer_token_map_data();
         com.load_lexer_tokens();
+        com.load_keyword_set_data();
         com.initialize_lexed_code();
         lexer.lex_symbols(com.source);
         lexer.lex_numbers();
+        lexer.lex_keywords();
         print_lexer_output(com.lexed_code);
         return null; // temporary
     }

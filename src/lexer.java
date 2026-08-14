@@ -164,4 +164,19 @@ public class lexer {
         }
         com.lexed_code[0].removeIf(obj -> obj instanceof Integer);
     }
+
+    public static void lex_keywords() {
+        int index = 0;
+        Object o;
+        while(index < com.lexed_code[0].size()) {
+            o = com.lexed_code[0].get(index);
+            if(o instanceof String) {
+                if(com.keyword_set.contains(o)) {
+                    com.lexed_code[3].add(o);
+                    com.lexed_code[0].set(index, types.lexer_token.KEYWORD);
+                }
+            }
+            index++;
+        }
+    }
 }

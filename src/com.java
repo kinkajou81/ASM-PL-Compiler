@@ -3,7 +3,9 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class com {
     public static MathContext mc = new MathContext(40, RoundingMode.CEILING);
@@ -93,4 +95,17 @@ public class com {
             lexer_tokens.add(String.valueOf(pair[0]));
         }
     }
+
+    public static Set<String> keyword_set = new HashSet();
+    public static String[] keyword_set_data = new String[] {
+        "const",
+        "namespace"
+    };
+
+    public static void load_keyword_set_data() {
+        for(String s : keyword_set_data) {
+            keyword_set.add(s);
+        }
+    }
+
 }
