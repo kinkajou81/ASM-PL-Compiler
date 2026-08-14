@@ -179,4 +179,17 @@ public class lexer {
             index++;
         }
     }
+
+    public static void lex_text() {
+        int index = 0;
+        Object o;
+        while(index < com.lexed_code[0].size()) {
+            o = com.lexed_code[0].get(index);
+            if(o instanceof String) {
+                com.lexed_code[4].add(o);
+                com.lexed_code[0].set(index, types.lexer_token.TEXT);
+            }
+            index++;
+        }
+    }
 }

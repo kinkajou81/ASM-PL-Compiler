@@ -32,6 +32,7 @@ public class Main {
         lexer.lex_symbols(com.source);
         lexer.lex_numbers();
         lexer.lex_keywords();
+        lexer.lex_text();
         print_lexer_output(com.lexed_code);
         return null; // temporary
     }
