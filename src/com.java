@@ -65,8 +65,6 @@ public class com {
         {"^", types.lexer_token.CARET},
         {"|", types.lexer_token.VERTICAL_LINE},
         {"?", types.lexer_token.TERNARY_PART1},
-        {"fn", types.lexer_token.FUNCTION_DEF},
-        {"endfn", types.lexer_token.FUNCTION_END},
         {"(", types.lexer_token.PAREN_LEFT},
         {")", types.lexer_token.PAREN_RIGHT},
         {"[", types.lexer_token.SQUARE_BRACKET_LEFT},
@@ -99,7 +97,9 @@ public class com {
     public static Set<String> keyword_set = new HashSet();
     public static String[] keyword_set_data = new String[] {
         "const",
-        "namespace"
+        "namespace",
+        "fn",
+        "endfn"
     };
 
     public static void load_keyword_set_data() {
