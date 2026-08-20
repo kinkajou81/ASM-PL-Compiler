@@ -45,28 +45,31 @@ public class lexer {
 
         while(characterPosition < s.length()) {
             currentToken = matchString(s, characterPosition);
-            Object outputs_last_element;
+            Object outputsLastElement;
 
             if(!com.lexedCode[0].isEmpty()) {
-                outputs_last_element = com.lexedCode[0].get(com.lexedCode[0].size() - 1);
+                outputsLastElement = com.lexedCode[0].getLast();
             } else {
-                outputs_last_element = null;
+                outputsLastElement = null;
             }
 
             if(com.isString.get(characterPosition)) {
-                if(outputs_last_element == types.lexerToken.STRING) {
-                    if(!com.lexedCode[1].isEmpty()) com.lexedCode[1].set(com.lexedCode[1].size() - 1, com.lexedCode[1].get(com.lexedCode[1].size() - 1) + s.substring(characterPosition, characterPosition + 1));
-                    else com.lexedCode[1].add(s.substring(characterPosition, characterPosition + 1));
+                if(outputsLastElement == types.lexerToken.STRING) {
+                    if(!com.lexedCode[1].isEmpty()) {
+                        com.lexedCode[1].set(com.lexedCode[1].size() - 1, com.lexedCode[1].getLast() + stringOfCharAt(s, characterPosition));
+                    } else {
+                        com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
+                    }
                 } else {
                     com.lexedCode[0].add(types.lexerToken.STRING);
-                    com.lexedCode[1].add(s.substring(characterPosition, characterPosition + 1));
+                    com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
                 }
                 characterPosition++;
             } else if(currentToken.equals("NONE")) {
-                if(outputs_last_element instanceof String) {
-                    com.lexedCode[0].set(com.lexedCode[0].size() - 1, outputs_last_element + s.substring(characterPosition, characterPosition + 1));
+                if(outputsLastElement instanceof String) {
+                    com.lexedCode[0].set(com.lexedCode[0].size() - 1, outputsLastElement + stringOfCharAt(s, characterPosition));
                 } else {
-                    com.lexedCode[0].add(s.substring(characterPosition, characterPosition + 1));
+                    com.lexedCode[0].add(stringOfCharAt(s, characterPosition));
                 }
                 characterPosition++;
             } else {
