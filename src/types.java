@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class types {
-    public enum lexer_token {
+    public enum lexerToken {
         // unary operators
         DIRECTIVE, NOT, UNASSIGNMENT, LABEL,
 
@@ -29,17 +29,17 @@ public class types {
         EOF, ENDLINE, NEWLINE
     }
 
-    public enum type_attribute {
+    public enum typeAttribute {
         POINTER, CONST, VOLATILE, RESTRICT, ATOMIC, REGISTER, UNSIGNED, EXPORT, THREAD_LOCAL, STATIC, EXTERN, CONSTINIT
     }
 
-    public enum function_attribute {
+    public enum functionAttribute {
         EXPORT, INLINE, STATIC
     }
 
     public class type {
         public String name;
-        public ArrayList<type_attribute> attributes;
+        public ArrayList<typeAttribute> attributes;
 
         public type() {
             name = ""; attributes = new ArrayList<>();
@@ -49,7 +49,7 @@ public class types {
             name = a; attributes = new ArrayList<>();
         }
 
-        public type add(type_attribute a) {
+        public type add(typeAttribute a) {
             attributes.add(a);
             return this;
         }
@@ -71,7 +71,7 @@ public class types {
     public class function {
         public String name;
         public ArrayList<variable> io_variables;
-        public ArrayList<function_attribute> attributes;
+        public ArrayList<functionAttribute> attributes;
 
         public function() {
             name = "";
@@ -91,7 +91,7 @@ public class types {
             attributes = new ArrayList<>();
         }
 
-        public function add(function_attribute a) {
+        public function add(functionAttribute a) {
             attributes.add(a);
             return this;
         }

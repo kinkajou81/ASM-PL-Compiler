@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static void print_lexer_output(ArrayList<Object>[] lexer_output) {
+    public static void printLexerOutput(ArrayList<Object>[] lexer_output) {
         String outstr = "";
         for(ArrayList<Object> arr : lexer_output) {
             for(Object o : arr) {
@@ -21,19 +21,19 @@ public class Main {
 
     public static String parse(String s) {
         com.source = s.lines().map(String::strip).collect(Collectors.joining("\n"));
-        com.is_string = parser.find_strings(com.source);
-        com.source = parser.remove_comments(com.source, com.is_string);
+        com.isString = parser.findStrings(com.source);
+        com.source = parser.removeComments(com.source, com.isString);
         com.source = com.source.lines().map(String::strip).collect(Collectors.joining("\n"));
-        com.is_string = parser.find_strings(com.source);    
-        com.load_lexer_token_map_data();
-        com.load_lexer_tokens();
-        com.load_keyword_set_data();
-        com.initialize_lexed_code();
-        lexer.lex_symbols(com.source);
-        lexer.lex_numbers();
-        lexer.lex_keywords();
-        lexer.lex_text();
-        print_lexer_output(com.lexed_code);
+        com.isString = parser.findStrings(com.source);    
+        com.loadLexerTokenMapData();
+        com.loadLexerTokens();
+        com.loadKeywordSetData();
+        com.initializeLexedCode();
+        lexer.lexSymbols(com.source);
+        lexer.lexNumbers();
+        lexer.lexKeywords();
+        lexer.lexText();
+        printLexerOutput(com.lexedCode);
         return null; // temporary
     }
 
@@ -43,19 +43,19 @@ public class Main {
             System.exit(-1);
         }
 
-        String source_code = null;
+        String sourceCode = null;
         try {
-            source_code = Files.readString(Paths.get(args[0]), StandardCharsets.UTF_8);
+            sourceCode = Files.readString(Paths.get(args[0]), StandardCharsets.UTF_8);
         } catch(Exception e) {
             System.err.printf("ERROR: %s%n", e.getMessage());
             System.exit(-1);
         }
 
-        String out = parse(source_code);
+        String out = parse(sourceCode);
 
-        File output_file = new File(args[1]);
+        File outputFile = new File(args[1]);
         try {
-            if(output_file.createNewFile()) {
+            if(outputFile.createNewFile()) {
                 System.out.printf("File %s created successfully%n", args[1]);
             } else {
                 System.out.printf("File %s already exists, would you like to overwrite it? (y/N)%n", args[1]);

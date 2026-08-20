@@ -12,99 +12,99 @@ public class com {
 
     public static String source = new String();
 
-    public static char virtual_new_line_symbol = ';';
-    public static char[] string_delimiters = {'"', '\''};
-    public static String[][] comment_delimiter_pairs = {{"//", "\n"}, {"/*", "*/"}};
+    public static char virtualNewLineSymbol = ';';
+    public static char[] stringDelimiters = {'"', '\''};
+    public static String[][] commentDelimiterPairs = {{"//", "\n"}, {"/*", "*/"}};
 
-    public static ArrayList<Integer> semicolon_positions = new ArrayList<>();
-    public static BitSet is_string = new BitSet();
+    public static ArrayList<Integer> semicolonPositions = new ArrayList<>();
+    public static BitSet isString = new BitSet();
 
-    public static ArrayList<Object>[] lexed_code = new ArrayList[5];
+    public static ArrayList<Object>[] lexedCode = new ArrayList[5];
         // [0] == tokens and strings // later on just tokens
         // [1] == string token's original data // all elements should always be a String
         // [2] == numeric token's original data // all elements should always be a BigDecimal
         // [3] == keyword token's original data // all elements should always be a String
         // [4] == text token's original data // all elements should always be a String
 
-    public static void initialize_lexed_code() {
-        for(int i = 0; i < lexed_code.length; i++) {
-            lexed_code[i] = new ArrayList<>();
+    public static void initializeLexedCode() {
+        for(int i = 0; i < lexedCode.length; i++) {
+            lexedCode[i] = new ArrayList<>();
         }
     }
     
-    public static Map<String, types.lexer_token> lexer_token_map = new HashMap<>();
-    public static ArrayList<String> lexer_tokens = new ArrayList<>();
-    public static Object[][] lexer_token_map_data = new Object[][]{ // of the form (String, types.lexer_token)
-        {"#", types.lexer_token.DIRECTIVE},
-        {"!", types.lexer_token.NOT},
-        {".<-", types.lexer_token.UNASSIGNMENT},
-        {":\n", types.lexer_token.LABEL},
-        {"<-", types.lexer_token.ASSIGNMENT},
-        {"~", types.lexer_token.WHILE},
-        {"==", types.lexer_token.EQUAL_TO},
-        {"<", types.lexer_token.LESS_THAN},
-        {">", types.lexer_token.GREATER_THAN},
-        {"<=", types.lexer_token.LESS_THAN_EQUAL_TO},
-        {">=", types.lexer_token.GREATER_THAN_EQUAL_TO},
-        {"!=", types.lexer_token.NOT_EQUAL_TO},
-        {"<<", types.lexer_token.BITSHIFT_LEFT},
-        {">>", types.lexer_token.BITSHIFT_RIGHT},
-        {"^<", types.lexer_token.BITROTATE_LEFT},
-        {"^>", types.lexer_token.BITROTATE_RIGHT},
-        {"/", types.lexer_token.DIVIDE},
-        {".", types.lexer_token.DOT},
-        {"->", types.lexer_token.STRUCTURE_DEREFERNCE},
-        {"::", types.lexer_token.NAMESPACE_RESOLUTION},
-        {",", types.lexer_token.LIST_SEPARATOR},
-        {"%", types.lexer_token.MODULO},
-        {"?:", types.lexer_token.ELVIS},
-        {"&", types.lexer_token.AMPERSAND},
-        {"*", types.lexer_token.ASTERISK},
-        {"+", types.lexer_token.PLUS},
-        {"-", types.lexer_token.MINUS},
-        {"^", types.lexer_token.CARET},
-        {"|", types.lexer_token.VERTICAL_LINE},
-        {"?", types.lexer_token.TERNARY_PART1},
-        {"(", types.lexer_token.PAREN_LEFT},
-        {")", types.lexer_token.PAREN_RIGHT},
-        {"[", types.lexer_token.SQUARE_BRACKET_LEFT},
-        {"]", types.lexer_token.SQUARE_BRACKET_RIGHT},
-        {"{", types.lexer_token.CURLY_LEFT},
-        {"}", types.lexer_token.CURLY_RIGHT},
-        {":", types.lexer_token.COLON},
-        {" ", types.lexer_token.SPACE},
-        {";", types.lexer_token.ENDLINE},
-        {"\n", types.lexer_token.NEWLINE}
+    public static Map<String, types.lexerToken> lexerTokenMap = new HashMap<>();
+    public static ArrayList<String> lexerTokens = new ArrayList<>();
+    public static Object[][] lexerTokenMapData = new Object[][]{ // of the form (String, types.lexerToken)
+        {"#", types.lexerToken.DIRECTIVE},
+        {"!", types.lexerToken.NOT},
+        {".<-", types.lexerToken.UNASSIGNMENT},
+        {":\n", types.lexerToken.LABEL},
+        {"<-", types.lexerToken.ASSIGNMENT},
+        {"~", types.lexerToken.WHILE},
+        {"==", types.lexerToken.EQUAL_TO},
+        {"<", types.lexerToken.LESS_THAN},
+        {">", types.lexerToken.GREATER_THAN},
+        {"<=", types.lexerToken.LESS_THAN_EQUAL_TO},
+        {">=", types.lexerToken.GREATER_THAN_EQUAL_TO},
+        {"!=", types.lexerToken.NOT_EQUAL_TO},
+        {"<<", types.lexerToken.BITSHIFT_LEFT},
+        {">>", types.lexerToken.BITSHIFT_RIGHT},
+        {"^<", types.lexerToken.BITROTATE_LEFT},
+        {"^>", types.lexerToken.BITROTATE_RIGHT},
+        {"/", types.lexerToken.DIVIDE},
+        {".", types.lexerToken.DOT},
+        {"->", types.lexerToken.STRUCTURE_DEREFERNCE},
+        {"::", types.lexerToken.NAMESPACE_RESOLUTION},
+        {",", types.lexerToken.LIST_SEPARATOR},
+        {"%", types.lexerToken.MODULO},
+        {"?:", types.lexerToken.ELVIS},
+        {"&", types.lexerToken.AMPERSAND},
+        {"*", types.lexerToken.ASTERISK},
+        {"+", types.lexerToken.PLUS},
+        {"-", types.lexerToken.MINUS},
+        {"^", types.lexerToken.CARET},
+        {"|", types.lexerToken.VERTICAL_LINE},
+        {"?", types.lexerToken.TERNARY_PART1},
+        {"(", types.lexerToken.PAREN_LEFT},
+        {")", types.lexerToken.PAREN_RIGHT},
+        {"[", types.lexerToken.SQUARE_BRACKET_LEFT},
+        {"]", types.lexerToken.SQUARE_BRACKET_RIGHT},
+        {"{", types.lexerToken.CURLY_LEFT},
+        {"}", types.lexerToken.CURLY_RIGHT},
+        {":", types.lexerToken.COLON},
+        {" ", types.lexerToken.SPACE},
+        {";", types.lexerToken.ENDLINE},
+        {"\n", types.lexerToken.NEWLINE}
     };
 
-    public static void load_lexer_token_map_data() {
-        for(Object[] entry_pair : lexer_token_map_data) {
+    public static void loadLexerTokenMapData() {
+        for(Object[] entry_pair : lexerTokenMapData) {
             if(entry_pair.length == 2) {
-                lexer_token_map.put((String)entry_pair[0], (types.lexer_token)entry_pair[1]);
+                lexerTokenMap.put((String)entry_pair[0], (types.lexerToken)entry_pair[1]);
             } else {
-                System.err.printf("ERROR: Malformed lexer_token_map_data");
+                System.err.printf("ERROR: Malformed lexerTokenMapData");
                 System.exit(-1);
             }
         }
     }
 
-    public static void load_lexer_tokens() {
-        for(Object[] pair : lexer_token_map_data) {
-            lexer_tokens.add(String.valueOf(pair[0]));
+    public static void loadLexerTokens() {
+        for(Object[] pair : lexerTokenMapData) {
+            lexerTokens.add(String.valueOf(pair[0]));
         }
     }
 
-    public static Set<String> keyword_set = new HashSet();
-    public static String[] keyword_set_data = new String[] {
+    public static Set<String> keywordSet = new HashSet();
+    public static String[] keywordSetData = new String[] {
         "const",
         "namespace",
         "fn",
         "endfn"
     };
 
-    public static void load_keyword_set_data() {
-        for(String s : keyword_set_data) {
-            keyword_set.add(s);
+    public static void loadKeywordSetData() {
+        for(String s : keywordSetData) {
+            keywordSet.add(s);
         }
     }
 
