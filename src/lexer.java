@@ -35,6 +35,10 @@ public class lexer {
         return candidates.get(largestCandidateIndex);
     }
 
+    public static String stringOfCharAt(String s, int index) {
+        return String.valueOf(s.charAt(index));
+    }
+
     public static void lexSymbols(String s) {
         int characterPosition = 0;
         String currentToken;
