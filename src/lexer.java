@@ -115,57 +115,60 @@ public class lexer {
         while(index < com.lexedCode[0].size()) {
             o = com.lexedCode[0].get(index);
 
-            if(o instanceof String) {
-                isNumber = true;
-                isFractional = true;
-                String current_string = (String) o;
+            if(!(o instanceof String)) {
+                index++;
+                continue;
+            }
+            isNumber = true;
+            if(index + 2 < com.lexedCode[0].size() && isNumber) {
+                if((com.lexedCode[0].get(index + 1) == types.lexerToken.DOT) && (com.lexedCode[0].get(index + 2) instanceof String)) {
+                    isFractional = true;
+                } else isFractional = false;
+            } else isFractional = false;
+            String current_string = (String) o;
 
-                if((current_string).startsWith("0b")) numberBase = 2;
-                else if((current_string).startsWith("0o")) numberBase = 8;
-                else if((current_string).startsWith("0x")) numberBase = 16;
-                else numberBase = 10;
+            if((current_string).startsWith("0b")) numberBase = 2;
+            else if((current_string).startsWith("0o")) numberBase = 8;
+            else if((current_string).startsWith("0x")) numberBase = 16;
+            else numberBase = 10;
 
-                offset = (numberBase == 10)? 0: 2;
-                characterPosition = offset;
+            offset = (numberBase == 10)? 0: 2;
+            characterPosition = offset;
+            while(characterPosition < (current_string).length()) {
+                if(!Character.isDigit((current_string).charAt(characterPosition))) {
+                    isNumber = false;
+                }
+                characterPosition++;
+            }
+
+            if(isNumber && isFractional) {
+                current_string = (String) com.lexedCode[0].get(index + 2);
+                characterPosition = 0;
                 while(characterPosition < (current_string).length()) {
                     if(!Character.isDigit((current_string).charAt(characterPosition))) {
-                        isNumber = false;
+                        isFractional = false;
                     }
                     characterPosition++;
                 }
+            }
 
-                if(index + 2 < com.lexedCode[0].size() && isNumber) {
-                    if((com.lexedCode[0].get(index + 1) == types.lexerToken.DOT)
-                       && (com.lexedCode[0].get(index + 2) instanceof String)) {
-                        current_string = (String) com.lexedCode[0].get(index + 2);
-                        characterPosition = 0;
-                        while(characterPosition < (current_string).length()) {
-                            if(!Character.isDigit((current_string).charAt(characterPosition))) {
-                                isFractional = false;
-                            }
-                            characterPosition++;
-                        }
-                    } else isFractional = false;
-                } else isFractional = false;
-
-                if(isNumber && !isFractional) {
-                    if(numberBase != 10) {
-                        com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2), numberBase));
-                    } else {
-                        com.lexedCode[2].add(stringToBigDecimal((String) com.lexedCode[0].get(index), numberBase));
-                    }
-                    com.lexedCode[0].set(index, types.lexerToken.NUMBER);
-                } else if(isFractional) {
-                    if(numberBase != 10) {
-                        com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2) + "." + com.lexedCode[0].get(index + 2), numberBase));
-                    } else {
-                        com.lexedCode[2].add(stringToBigDecimal(com.lexedCode[0].get(index) + "." + com.lexedCode[0].get(index + 2), numberBase));
-                    }
-                    com.lexedCode[0].set(index, types.lexerToken.NUMBER);
-                    com.lexedCode[0].set(index + 1, (Integer)0); // Integer marks it for deletetion
-                    com.lexedCode[0].set(index + 2, (Integer)0);
-                    index += 2;
+            if(isNumber && !isFractional) {
+                if(numberBase != 10) {
+                    com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2), numberBase));
+                } else {
+                    com.lexedCode[2].add(stringToBigDecimal((String) com.lexedCode[0].get(index), numberBase));
                 }
+                com.lexedCode[0].set(index, types.lexerToken.NUMBER);
+            } else if(isNumber && isFractional) {
+                if(numberBase != 10) {
+                    com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2) + "." + com.lexedCode[0].get(index + 2), numberBase));
+                } else {
+                    com.lexedCode[2].add(stringToBigDecimal(com.lexedCode[0].get(index) + "." + com.lexedCode[0].get(index + 2), numberBase));
+                }
+                com.lexedCode[0].set(index, types.lexerToken.NUMBER);
+                com.lexedCode[0].set(index + 1, (Integer)0); // Integer marks it for deletetion
+                com.lexedCode[0].set(index + 2, (Integer)0);
+                index += 2;
             }
             index++;
         }
