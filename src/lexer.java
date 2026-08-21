@@ -180,11 +180,9 @@ public class lexer {
         Object o;
         while(index < com.lexedCode[0].size()) {
             o = com.lexedCode[0].get(index);
-            if(o instanceof String) {
-                if(com.keywordSet.contains(o)) {
-                    com.lexedCode[3].add(o);
-                    com.lexedCode[0].set(index, types.lexerToken.KEYWORD);
-                }
+            if(o instanceof String && com.keywordSet.contains(o)) {
+                com.lexedCode[3].add(o);
+                com.lexedCode[0].set(index, types.lexerToken.KEYWORD);
             }
             index++;
         }
