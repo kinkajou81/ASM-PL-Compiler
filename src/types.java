@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class types {
+public class Types {
     public enum lexerToken {
         // unary operators
         DIRECTIVE, NOT, UNASSIGNMENT, LABEL,
@@ -37,61 +37,61 @@ public class types {
         EXPORT, INLINE, STATIC
     }
 
-    public class type {
+    public class Type {
         public String name;
         public ArrayList<typeAttribute> attributes;
 
-        public type() {
+        public Type() {
             name = ""; attributes = new ArrayList<>();
         }
 
-        public type(String a) {
+        public Type(String a) {
             name = a; attributes = new ArrayList<>();
         }
 
-        public type add(typeAttribute a) {
+        public Type add(typeAttribute a) {
             attributes.add(a);
             return this;
         }
     }
 
-    public class variable {
+    public class Variable {
         public String name;
-        public type datatype;
+        public Type datatype;
 
-        public variable() {
-            name = ""; datatype = new type();
+        public Variable() {
+            name = ""; datatype = new Type();
         }
 
-        public variable(String a, type b) {
+        public Variable(String a, Type b) {
             name = a; datatype = b;
         }
     }
 
-    public class function {
+    public class Function {
         public String name;
-        public ArrayList<variable> io_variables;
+        public ArrayList<Variable> io_variables;
         public ArrayList<functionAttribute> attributes;
 
-        public function() {
+        public Function() {
             name = "";
             io_variables = new ArrayList<>();
             attributes = new ArrayList<>();
         }
 
-        public function(String a) {
+        public Function(String a) {
             name = a;
             io_variables = new ArrayList<>();
             attributes = new ArrayList<>();
         }
 
-        public function(String a, ArrayList<variable> b) {
+        public Function(String a, ArrayList<Variable> b) {
             name = a;
             io_variables = b;
             attributes = new ArrayList<>();
         }
 
-        public function add(functionAttribute a) {
+        public Function add(functionAttribute a) {
             attributes.add(a);
             return this;
         }

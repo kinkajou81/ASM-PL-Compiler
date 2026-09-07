@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.BitSet;
 
-public class parser {
+public class Parser {
     public static BitSet findStrings(String s) {
         BitSet isString = new BitSet();
 
@@ -14,8 +14,8 @@ public class parser {
             currentDelimiter = 0;
             if(insideString) isString.set(characterPosition);
 
-            while(currentDelimiter < com.stringDelimiters.length) {
-                if(s.charAt(characterPosition) == com.stringDelimiters[currentDelimiter]) {
+            while(currentDelimiter < Com.stringDelimiters.length) {
+                if(s.charAt(characterPosition) == Com.stringDelimiters[currentDelimiter]) {
                     if(currentDelimiter == stringType && insideString) {
                         if(characterPosition > 0) if(s.charAt(characterPosition - 1) != '\\') {
                             insideString = false;
@@ -44,7 +44,7 @@ public class parser {
 
         int characterPosition = 0;
         int currentDelimiter;
-        while(characterPosition< s.length()) {
+        while(characterPosition < s.length()) {
             currentDelimiter = 0;
             if(insideComment) isComment.set(characterPosition);
             if(isString.get(characterPosition)) {characterPosition++; continue;}
@@ -56,23 +56,23 @@ public class parser {
                 exitedComment--;
             }
 
-            while(currentDelimiter < com.commentDelimiterPairs.length) {
-                if(characterPosition + com.commentDelimiterPairs[currentDelimiter][1].length() <= s.length()) {
-                    if((s.substring(characterPosition, characterPosition+ com.commentDelimiterPairs[currentDelimiter][1].length())).equals(com.commentDelimiterPairs[currentDelimiter][1])
+            while(currentDelimiter < Com.commentDelimiterPairs.length) {
+                if(characterPosition + Com.commentDelimiterPairs[currentDelimiter][1].length() <= s.length()) {
+                    if((s.substring(characterPosition, characterPosition+ Com.commentDelimiterPairs[currentDelimiter][1].length())).equals(Com.commentDelimiterPairs[currentDelimiter][1])
                         && currentDelimiter == commentType && insideComment) {
                             
                         commentType = -1;
-                        if(com.commentDelimiterPairs[currentDelimiter][1].equals("\n")) {
+                        if(Com.commentDelimiterPairs[currentDelimiter][1].equals("\n")) {
                             isComment.clear(characterPosition);
                             insideComment = false;
                         } else {
-                            exitedComment = com.commentDelimiterPairs[currentDelimiter][1].length();
+                            exitedComment = Com.commentDelimiterPairs[currentDelimiter][1].length();
                         }
                         break;
                     }
                 }
-                if(characterPosition+ com.commentDelimiterPairs[currentDelimiter][0].length() <= s.length()) {
-                    if((s.substring(characterPosition, characterPosition+ com.commentDelimiterPairs[currentDelimiter][0].length())).equals(com.commentDelimiterPairs[currentDelimiter][0])
+                if(characterPosition+ Com.commentDelimiterPairs[currentDelimiter][0].length() <= s.length()) {
+                    if((s.substring(characterPosition, characterPosition+ Com.commentDelimiterPairs[currentDelimiter][0].length())).equals(Com.commentDelimiterPairs[currentDelimiter][0])
                         && !insideComment) {
 
                         insideComment = true;
@@ -93,5 +93,38 @@ public class parser {
         }
 
         return output_builder.toString();
+    }
+
+    public static void calculate_pair_delimiter_depths() {
+        ArrayList<Object> active_delimiters = new ArrayList<>();
+        int[] current_depths = new int[Com.pairDelimiterData.length];
+        boolean remove_last_active_delimiter = false;
+
+        int token_index = 0;
+        int keyword_index = 0;
+        while(token_index < Com.lexedCode[0].size()) {
+            if(remove_last_active_delimiter) {
+                current_depths[Com.pairDelimiterIndicies.get(active_delimiters.getLast())]--;
+                active_delimiters.removeLast();
+                remove_last_active_delimiter = false;
+            }
+
+            if(Com.pairDelimiterSetClosers.contains(Com.lexedCode[0].get(token_index))) {
+                if(Com.pairDelimiterMapClosers.get(active_delimiters.getLast()).equals(Com.lexedCode[0].get(token_index))) {
+                    remove_last_active_delimiter = true;
+                }
+
+            } else if(Com.pairDelimiterSetOpeners.contains(Com.lexedCode[0].get(token_index))) {
+                
+            } else if(Com.lexedCode[0].get(token_index) == Types.lexerToken.KEYWORD) {
+                if(Com.pairDelimiterSetClosers.contains(Com.lexedCode[3].get(keyword_index))) {
+
+                } else if(Com.pairDelimiterSetOpeners.contains(Com.lexedCode[3].get(keyword_index))) {
+
+                }
+                keyword_index++;
+            }
+            token_index++;
+        }
     }
 }

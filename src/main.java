@@ -20,20 +20,20 @@ public class Main {
     }
 
     public static String parse(String s) {
-        com.source = s.lines().map(String::strip).collect(Collectors.joining("\n"));
-        com.isString = parser.findStrings(com.source);
-        com.source = parser.removeComments(com.source, com.isString);
-        com.source = com.source.lines().map(String::strip).collect(Collectors.joining("\n"));
-        com.isString = parser.findStrings(com.source);    
-        com.loadLexerTokenMapData();
-        com.loadLexerTokens();
-        com.loadKeywordSetData();
-        com.initializeLexedCode();
-        lexer.lexSymbols(com.source);
-        lexer.lexNumbers();
-        lexer.lexKeywords();
-        lexer.lexText();
-        printLexerOutput(com.lexedCode);
+        Com.source = s.lines().map(String::strip).collect(Collectors.joining("\n"));
+        Com.isString = Parser.findStrings(Com.source);
+        Com.source = Parser.removeComments(Com.source, Com.isString);
+        Com.source = Com.source.lines().map(String::strip).collect(Collectors.joining("\n"));
+        Com.isString = Parser.findStrings(Com.source);    
+        Com.loadLexerTokenMapData();
+        Com.loadLexerTokens();
+        Com.loadKeywordSetData();
+        Com.initializeLexedCode();
+        Lexer.lexSymbols(Com.source);
+        Lexer.lexNumbers();
+        Lexer.lexKeywords();
+        Lexer.lexText();
+        printLexerOutput(Com.lexedCode);
         return null; // temporary
     }
 

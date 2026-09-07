@@ -2,7 +2,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-public class lexer {
+public class Lexer {
     public static String matchString(String s, int position) {
         if(position >= s.length() || position < 0) {
             System.err.printf("ERROR: Invalid position found in matchString(), returning NONE");
@@ -12,7 +12,7 @@ public class lexer {
         ArrayList<String> candidates = new ArrayList<>();
         ArrayList<Integer> candidateLengths = new ArrayList<>();
 
-        for(String token : com.lexerTokens) {
+        for(String token : Com.lexerTokens) {
             if(s.regionMatches(position, token, 0, token.length())) {
                 candidates.add(token);
                 candidateLengths.add(token.length());
@@ -47,33 +47,33 @@ public class lexer {
             currentToken = matchString(s, characterPosition);
             Object outputsLastElement;
 
-            if(!com.lexedCode[0].isEmpty()) {
-                outputsLastElement = com.lexedCode[0].getLast();
+            if(!Com.lexedCode[0].isEmpty()) {
+                outputsLastElement = Com.lexedCode[0].getLast();
             } else {
                 outputsLastElement = null;
             }
 
-            if(com.isString.get(characterPosition)) {
-                if(outputsLastElement == types.lexerToken.STRING) {
-                    if(!com.lexedCode[1].isEmpty()) {
-                        com.lexedCode[1].set(com.lexedCode[1].size() - 1, com.lexedCode[1].getLast() + stringOfCharAt(s, characterPosition));
+            if(Com.isString.get(characterPosition)) {
+                if(outputsLastElement == Types.lexerToken.STRING) {
+                    if(!Com.lexedCode[1].isEmpty()) {
+                        Com.lexedCode[1].set(Com.lexedCode[1].size() - 1, Com.lexedCode[1].getLast() + stringOfCharAt(s, characterPosition));
                     } else {
-                        com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
+                        Com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
                     }
                 } else {
-                    com.lexedCode[0].add(types.lexerToken.STRING);
-                    com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
+                    Com.lexedCode[0].add(Types.lexerToken.STRING);
+                    Com.lexedCode[1].add(stringOfCharAt(s, characterPosition));
                 }
                 characterPosition++;
             } else if(currentToken.equals("NONE")) {
                 if(outputsLastElement instanceof String) {
-                    com.lexedCode[0].set(com.lexedCode[0].size() - 1, outputsLastElement + stringOfCharAt(s, characterPosition));
+                    Com.lexedCode[0].set(Com.lexedCode[0].size() - 1, outputsLastElement + stringOfCharAt(s, characterPosition));
                 } else {
-                    com.lexedCode[0].add(stringOfCharAt(s, characterPosition));
+                    Com.lexedCode[0].add(stringOfCharAt(s, characterPosition));
                 }
                 characterPosition++;
             } else {
-                com.lexedCode[0].add(com.lexerTokenMap.get(currentToken));
+                Com.lexedCode[0].add(Com.lexerTokenMap.get(currentToken));
                 characterPosition += currentToken.length();
             }
         }
@@ -100,7 +100,7 @@ public class lexer {
             return new BigDecimal(s);
         }
         return (new BigDecimal(new BigInteger(removeDecimalPoint(s), base)))
-               .divide(new BigDecimal((BigInteger.valueOf(base)).pow(countFractionalDigits(s))), com.mc);
+               .divide(new BigDecimal((BigInteger.valueOf(base)).pow(countFractionalDigits(s))), Com.mc);
     }
 
     public static void lexNumbers() {
@@ -112,16 +112,16 @@ public class lexer {
 
         int index = 0;
         Object o;
-        while(index < com.lexedCode[0].size()) {
-            o = com.lexedCode[0].get(index);
+        while(index < Com.lexedCode[0].size()) {
+            o = Com.lexedCode[0].get(index);
 
             if(!(o instanceof String)) {
                 index++;
                 continue;
             }
             isNumber = true;
-            if(index + 2 < com.lexedCode[0].size() && isNumber) {
-                if((com.lexedCode[0].get(index + 1) == types.lexerToken.DOT) && (com.lexedCode[0].get(index + 2) instanceof String)) {
+            if(index + 2 < Com.lexedCode[0].size() && isNumber) {
+                if((Com.lexedCode[0].get(index + 1) == Types.lexerToken.DOT) && (Com.lexedCode[0].get(index + 2) instanceof String)) {
                     isFractional = true;
                 } else isFractional = false;
             } else isFractional = false;
@@ -142,7 +142,7 @@ public class lexer {
             }
 
             if(isNumber && isFractional) {
-                current_string = (String) com.lexedCode[0].get(index + 2);
+                current_string = (String) Com.lexedCode[0].get(index + 2);
                 characterPosition = 0;
                 while(characterPosition < (current_string).length()) {
                     if(!Character.isDigit((current_string).charAt(characterPosition))) {
@@ -154,35 +154,35 @@ public class lexer {
 
             if(isNumber && !isFractional) {
                 if(numberBase != 10) {
-                    com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2), numberBase));
+                    Com.lexedCode[2].add(stringToBigDecimal(((String) Com.lexedCode[0].get(index)).substring(2), numberBase));
                 } else {
-                    com.lexedCode[2].add(stringToBigDecimal((String) com.lexedCode[0].get(index), numberBase));
+                    Com.lexedCode[2].add(stringToBigDecimal((String) Com.lexedCode[0].get(index), numberBase));
                 }
-                com.lexedCode[0].set(index, types.lexerToken.NUMBER);
+                Com.lexedCode[0].set(index, Types.lexerToken.NUMBER);
             } else if(isNumber && isFractional) {
                 if(numberBase != 10) {
-                    com.lexedCode[2].add(stringToBigDecimal(((String) com.lexedCode[0].get(index)).substring(2) + "." + com.lexedCode[0].get(index + 2), numberBase));
+                    Com.lexedCode[2].add(stringToBigDecimal(((String) Com.lexedCode[0].get(index)).substring(2) + "." + Com.lexedCode[0].get(index + 2), numberBase));
                 } else {
-                    com.lexedCode[2].add(stringToBigDecimal(com.lexedCode[0].get(index) + "." + com.lexedCode[0].get(index + 2), numberBase));
+                    Com.lexedCode[2].add(stringToBigDecimal(Com.lexedCode[0].get(index) + "." + Com.lexedCode[0].get(index + 2), numberBase));
                 }
-                com.lexedCode[0].set(index, types.lexerToken.NUMBER);
-                com.lexedCode[0].set(index + 1, (Integer)0); // Integer marks it for deletetion
-                com.lexedCode[0].set(index + 2, (Integer)0);
+                Com.lexedCode[0].set(index, Types.lexerToken.NUMBER);
+                Com.lexedCode[0].set(index + 1, (Integer)0); // Integer marks it for deletetion
+                Com.lexedCode[0].set(index + 2, (Integer)0);
                 index += 2;
             }
             index++;
         }
-        com.lexedCode[0].removeIf(obj -> obj instanceof Integer);
+        Com.lexedCode[0].removeIf(obj -> obj instanceof Integer);
     }
 
     public static void lexKeywords() {
         int index = 0;
         Object o;
-        while(index < com.lexedCode[0].size()) {
-            o = com.lexedCode[0].get(index);
-            if(o instanceof String && com.keywordSet.contains(o)) {
-                com.lexedCode[3].add(o);
-                com.lexedCode[0].set(index, types.lexerToken.KEYWORD);
+        while(index < Com.lexedCode[0].size()) {
+            o = Com.lexedCode[0].get(index);
+            if(o instanceof String && Com.keywordSet.contains(o)) {
+                Com.lexedCode[3].add(o);
+                Com.lexedCode[0].set(index, Types.lexerToken.KEYWORD);
             }
             index++;
         }
@@ -191,11 +191,11 @@ public class lexer {
     public static void lexText() {
         int index = 0;
         Object o;
-        while(index < com.lexedCode[0].size()) {
-            o = com.lexedCode[0].get(index);
+        while(index < Com.lexedCode[0].size()) {
+            o = Com.lexedCode[0].get(index);
             if(o instanceof String) {
-                com.lexedCode[4].add(o);
-                com.lexedCode[0].set(index, types.lexerToken.TEXT);
+                Com.lexedCode[4].add(o);
+                Com.lexedCode[0].set(index, Types.lexerToken.TEXT);
             }
             index++;
         }
